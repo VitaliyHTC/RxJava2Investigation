@@ -3,6 +3,7 @@ package com.vitaliyhtc.rxjava2investigation.data.model;
 import com.google.gson.annotations.SerializedName;
 
 @SuppressWarnings("unused")
+// TODO: 24/07/17 can group models to different packages by
 public class Pager {
 
     @SerializedName("records_per_page")

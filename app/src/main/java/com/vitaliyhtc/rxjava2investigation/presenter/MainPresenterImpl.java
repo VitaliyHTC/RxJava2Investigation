@@ -18,6 +18,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     private static final int COUNT_STORES = 5;
     private static final RxFilter<Store> mStoresFilter =
+//             TODO: 24/07/17  store.getName().startsWith("A")
             store -> store.getName().substring(0, 1).equals("A");
 
     private static final int COUNT_PRODUCTS_PER_STORE = 20;
@@ -67,6 +68,10 @@ public class MainPresenterImpl implements MainPresenter {
     public void addProductToResult(int storeId, Product product) {
         mMainView.addProductToResult(storeId, product);
     }
+
+    // TODO: 24/07/17 add more customization
+//    mMainView.loadStoresError();
+//    mMainView.loadProductsError();
 
     @Override
     public void onError(Throwable t) {

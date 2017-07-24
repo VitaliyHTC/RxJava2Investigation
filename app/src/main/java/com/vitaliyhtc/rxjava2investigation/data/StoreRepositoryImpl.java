@@ -16,6 +16,7 @@ public class StoreRepositoryImpl implements StoreRepository {
     private Disposable mDisposableStores;
     private int mCountStores;
 
+    // TODO: 24/07/17 wrong repository definitely don't know anything about presenter they are on different levels
     public StoreRepositoryImpl(MainPresenter mainPresenter) {
         mMainPresenter = mainPresenter;
     }

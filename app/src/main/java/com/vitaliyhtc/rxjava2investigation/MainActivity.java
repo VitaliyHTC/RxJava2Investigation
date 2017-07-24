@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         updateStoresAndProductsListUi();
     }
 
+    // TODO: 24/07/17 never ever do this again!!! if you have list - display list.
     private void updateStoresAndProductsListUi() {
         StringBuilder sb = new StringBuilder();
         for (Store store : mStoreList) {

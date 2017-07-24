@@ -16,6 +16,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     private Disposable mDisposableProducts;
     private int mCountProducts;
 
+    // TODO: 24/07/17 wrong repository definitely don't know anything about presenter they are on different levels
     public ProductRepositoryImpl(MainPresenter mainPresenter) {
         mMainPresenter = mainPresenter;
     }

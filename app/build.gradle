@@ -12,7 +12,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+//    todo by default you need to add jks and sign release/debug builds so other teammates can contribute the project
     buildTypes {
+//        all {
+//            todo common variables can be here
+//        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
