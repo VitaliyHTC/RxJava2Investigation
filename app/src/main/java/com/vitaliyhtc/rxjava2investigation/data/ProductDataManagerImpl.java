@@ -5,7 +5,7 @@ import android.util.Log;
 import com.vitaliyhtc.rxjava2investigation.BuildConfig;
 import com.vitaliyhtc.rxjava2investigation.Config;
 import com.vitaliyhtc.rxjava2investigation.data.model.Product;
-import com.vitaliyhtc.rxjava2investigation.data.model.ProductsByStoreResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductsByStoreResult;
 import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
 import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;
 
@@ -72,9 +72,9 @@ public class ProductDataManagerImpl implements ProductDataManager {
 
             @Override
             public void onFailure(Call<ProductsByStoreResult> call, Throwable t) {
+                Log.e(LOG_TAG, t.toString());
                 if (!emitter.isDisposed())
                     emitter.onError(t);
-                Log.e(LOG_TAG, t.toString());
             }
         });
     }

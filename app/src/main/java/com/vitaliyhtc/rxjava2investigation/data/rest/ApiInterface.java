@@ -1,10 +1,10 @@
 package com.vitaliyhtc.rxjava2investigation.data.rest;
 
-import com.vitaliyhtc.rxjava2investigation.data.model.ProductResult;
-import com.vitaliyhtc.rxjava2investigation.data.model.ProductsByStoreResult;
-import com.vitaliyhtc.rxjava2investigation.data.model.ProductsResult;
-import com.vitaliyhtc.rxjava2investigation.data.model.StoreResult;
-import com.vitaliyhtc.rxjava2investigation.data.model.StoresResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductsByStoreResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductsResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.StoreResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.StoresResult;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

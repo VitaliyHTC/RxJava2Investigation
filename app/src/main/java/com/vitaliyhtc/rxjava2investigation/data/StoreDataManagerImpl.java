@@ -5,7 +5,7 @@ import android.util.Log;
 import com.vitaliyhtc.rxjava2investigation.BuildConfig;
 import com.vitaliyhtc.rxjava2investigation.Config;
 import com.vitaliyhtc.rxjava2investigation.data.model.Store;
-import com.vitaliyhtc.rxjava2investigation.data.model.StoresResult;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.StoresResult;
 import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
 import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;
 
@@ -73,9 +73,9 @@ public class StoreDataManagerImpl implements StoreDataManager {
 
             @Override
             public void onFailure(Call<StoresResult> call, Throwable t) {
+                Log.e(LOG_TAG, t.toString());
                 if (!emitter.isDisposed())
                     emitter.onError(t);
-                Log.e(LOG_TAG, t.toString());
             }
         });
     }

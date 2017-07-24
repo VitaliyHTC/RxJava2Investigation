@@ -2,6 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'boostandroidapps'
+            keyPassword 'boost***'
+            storeFile file('BoostAndroidAppKey.jks')
+            storePassword 'boost***'
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
@@ -12,23 +20,19 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-//    todo by default you need to add jks and sign release/debug builds so other teammates can contribute the project
     buildTypes {
-//        all {
-//            todo common variables can be here
-//        }
-        release {
+        all {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField "String", "LCBO_API_ACCESS_KEY", "\"MDo4MjI4NjU0Ni1mZGFmLTExZTYtODQzOC0yZjJhN2Y4YWNmOGQ6dEFucGdpR2xvcXR1bGloOThwNkZ0S1lKVGxNa1M2OUdvV3Bw\""
             buildConfigField "String", "LCBO_API_BASE_URL", "\"https://lcboapi.com/\""
         }
+        release {
+        }
         debug {
-            minifyEnabled false
-
-            buildConfigField "String", "LCBO_API_ACCESS_KEY", "\"MDo4MjI4NjU0Ni1mZGFmLTExZTYtODQzOC0yZjJhN2Y4YWNmOGQ6dEFucGdpR2xvcXR1bGloOThwNkZ0S1lKVGxNa1M2OUdvV3Bw\""
-            buildConfigField "String", "LCBO_API_BASE_URL", "\"https://lcboapi.com/\""
+            debuggable true
         }
     }
     compileOptions {

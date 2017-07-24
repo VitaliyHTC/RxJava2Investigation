@@ -2,7 +2,7 @@ package com.vitaliyhtc.rxjava2investigation.data;
 
 import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.domain.model.Store;
-import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenter;
+import com.vitaliyhtc.rxjava2investigation.presenter.ResultStoresCallback;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -10,15 +10,14 @@ import io.reactivex.schedulers.Schedulers;
 
 public class StoreRepositoryImpl implements StoreRepository {
 
-    private MainPresenter mMainPresenter;
+    private ResultStoresCallback mResultCallback;
     private StoreDataManager mStoreDataManager;
 
     private Disposable mDisposableStores;
     private int mCountStores;
 
-    // TODO: 24/07/17 wrong repository definitely don't know anything about presenter they are on different levels
-    public StoreRepositoryImpl(MainPresenter mainPresenter) {
-        mMainPresenter = mainPresenter;
+    public StoreRepositoryImpl(ResultStoresCallback callback) {
+        mResultCallback = callback;
     }
 
     @Override
@@ -46,12 +45,12 @@ public class StoreRepositoryImpl implements StoreRepository {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             store -> {
-                                mMainPresenter.addStoreToResult(store);
+                                mResultCallback.addStoreToResult(store);
                                 mCountStores++;
                                 if (mCountStores >= count)
                                     RxUtils.dispose(mDisposableStores);
                             },
-                            throwable -> mMainPresenter.onError(throwable)
+                            throwable -> mResultCallback.loadStoresError(throwable)
                     );
         }
     }

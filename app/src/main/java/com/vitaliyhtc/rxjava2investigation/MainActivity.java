@@ -2,8 +2,9 @@ package com.vitaliyhtc.rxjava2investigation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vitaliyhtc.rxjava2investigation.domain.model.Product;
@@ -26,12 +27,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private MainPresenter mMainPresenter;
 
+    private List<String> mResultList = new ArrayList<>();
+
     @BindView(R.id.btn_load)
     Button mButtonLoad;
-    @BindView(R.id.tv_result)
-    TextView mTextViewResult;
-    @BindView(R.id.tv_error)
-    TextView mTextViewError;
+    @BindView(R.id.lv_result)
+    ListView mListViewResult;
+    @BindView(R.id.tv_stores_error)
+    TextView mTextViewStoresError;
+    @BindView(R.id.tv_products_error)
+    TextView mTextViewProductsError;
 
     private List<Store> mStoreList;
     private Map<Integer, List<Product>> mProductsMap;
@@ -59,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @OnClick(R.id.btn_load)
     void onButtonLoadClick() {
         mMainPresenter.loadData();
-        mTextViewResult.setText("Result...");
     }
 
     @Override
@@ -77,24 +81,29 @@ public class MainActivity extends AppCompatActivity implements MainView {
         updateStoresAndProductsListUi();
     }
 
-    // TODO: 24/07/17 never ever do this again!!! if you have list - display list.
     private void updateStoresAndProductsListUi() {
-        StringBuilder sb = new StringBuilder();
+        mResultList.clear();
         for (Store store : mStoreList) {
-            sb.append(store.getName()).append("\r\n");
+            mResultList.add(store.getName());
             if (mProductsMap.containsKey(store.getId())) {
                 for (Product product : mProductsMap.get(store.getId())) {
-                    sb.append("___").append(product.getName()).append("\r\n");
+                    mResultList.add("     " + product.getName());
                 }
             }
         }
-        mTextViewResult.setText(sb.toString());
-        mTextViewError.setText("Error...");
+        String[] resultArray = mResultList.toArray(new String[mResultList.size()]);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, resultArray);
+        mListViewResult.setAdapter(adapter);
     }
 
     @Override
-    public void onError(Throwable t) {
-        Log.e(TAG, "onError: ", t);
-        mTextViewError.setText(t.toString());
+    public void loadStoresError(Throwable t) {
+        mTextViewStoresError.setText(t.toString());
+    }
+
+    @Override
+    public void loadProductsError(Throwable t) {
+        mTextViewProductsError.setText(t.toString());
     }
 }

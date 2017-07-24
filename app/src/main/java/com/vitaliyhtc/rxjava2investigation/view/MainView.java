@@ -6,5 +6,6 @@ import com.vitaliyhtc.rxjava2investigation.domain.model.Store;
 public interface MainView extends BaseView {
     void addStoreToResult(Store store);
     void addProductToResult(int storeId, Product product);
-    void onError(Throwable t);
+    void loadStoresError(Throwable t);
+    void loadProductsError(Throwable t);
 }

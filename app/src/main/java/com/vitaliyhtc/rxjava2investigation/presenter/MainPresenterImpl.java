@@ -8,18 +8,17 @@ import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
 import com.vitaliyhtc.rxjava2investigation.domain.model.Product;
 import com.vitaliyhtc.rxjava2investigation.domain.model.Store;
-import com.vitaliyhtc.rxjava2investigation.view.BaseView;
 import com.vitaliyhtc.rxjava2investigation.view.MainView;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class MainPresenterImpl implements MainPresenter {
+public class MainPresenterImpl implements MainPresenter<MainView>,
+        ResultStoresCallback, ResultProductsCallback {
 
     private static final int COUNT_STORES = 5;
     private static final RxFilter<Store> mStoresFilter =
-//             TODO: 24/07/17  store.getName().startsWith("A")
-            store -> store.getName().substring(0, 1).equals("A");
+            store -> store.getName().startsWith("A");
 
     private static final int COUNT_PRODUCTS_PER_STORE = 20;
     private static final RxFilter<Product> mProductFilter =
@@ -36,12 +35,8 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public void onAttachView(BaseView baseView) {
-        if (baseView instanceof MainView) {
-            mMainView = (MainView) baseView;
-        } else {
-            throw new IllegalArgumentException("Expected instance of MainView but actual is not!");
-        }
+    public void onAttachView(MainView mainView) {
+        mMainView = mainView;
         mStoreRepository.initResources();
     }
 
@@ -69,15 +64,15 @@ public class MainPresenterImpl implements MainPresenter {
         mMainView.addProductToResult(storeId, product);
     }
 
-    // TODO: 24/07/17 add more customization
-//    mMainView.loadStoresError();
-//    mMainView.loadProductsError();
-
     @Override
-    public void onError(Throwable t) {
-        mMainView.onError(t);
+    public void loadStoresError(Throwable t) {
+        mMainView.loadStoresError(t);
     }
 
+    @Override
+    public void loadProductsError(Throwable t) {
+        mMainView.loadProductsError(t);
+    }
 
     @Override
     public void loadData() {
