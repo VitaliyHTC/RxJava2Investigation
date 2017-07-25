@@ -4,7 +4,8 @@ import android.util.Log;
 
 import com.vitaliyhtc.rxjava2investigation.BuildConfig;
 import com.vitaliyhtc.rxjava2investigation.Config;
-import com.vitaliyhtc.rxjava2investigation.data.model.Store;
+import com.vitaliyhtc.rxjava2investigation.data.model.ConvertUtils;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.Store;
 import com.vitaliyhtc.rxjava2investigation.data.model.response.StoresResult;
 import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
 import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;
@@ -24,7 +25,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
 
     private List<Store> mStoresResult = new ArrayList<>();
 
-    private Observable<Store> mStoreObservable;
+    private Observable<com.vitaliyhtc.rxjava2investigation.model.Store> mStoreObservable;
 
     @Override
     public void initResources() {
@@ -34,7 +35,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
     public void releaseResources() {
     }
 
-    public synchronized Observable<Store> getStoresObservable() {
+    public synchronized Observable<com.vitaliyhtc.rxjava2investigation.model.Store> getStoresObservable() {
         if (mStoreObservable != null) {
             return mStoreObservable;
         } else {
@@ -43,7 +44,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
         }
     }
 
-    private void getStoresPageFromNetwork(final int offset, final ObservableEmitter<Store> emitter) {
+    private void getStoresPageFromNetwork(final int offset, final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.model.Store> emitter) {
         mStoresResult.clear();
         ApiInterface apiService = RetrofitApiClient.getClient().create(ApiInterface.class);
 
@@ -57,7 +58,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
 
                     if (!mStoresResult.isEmpty()) {
                         for (Store store : mStoresResult) {
-                            emitter.onNext(store);
+                            emitter.onNext(ConvertUtils.convertStoreModel(store));
                         }
                         //mStoresResult.forEach(emitter::onNext);
                         if (!emitter.isDisposed())

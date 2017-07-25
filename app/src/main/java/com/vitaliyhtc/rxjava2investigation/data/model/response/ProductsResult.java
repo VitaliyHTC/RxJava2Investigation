@@ -1,7 +1,6 @@
 package com.vitaliyhtc.rxjava2investigation.data.model.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.vitaliyhtc.rxjava2investigation.data.model.Product;
 
 import java.util.List;
 

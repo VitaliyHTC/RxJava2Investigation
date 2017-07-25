@@ -1,4 +1,4 @@
-package com.vitaliyhtc.rxjava2investigation.data;
+package com.vitaliyhtc.rxjava2investigation.domain;
 
 import io.reactivex.disposables.Disposable;
 

@@ -1,6 +1,6 @@
 package com.vitaliyhtc.rxjava2investigation.data;
 
-import com.vitaliyhtc.rxjava2investigation.data.model.Store;
+import com.vitaliyhtc.rxjava2investigation.model.Store;
 
 import io.reactivex.Observable;
 

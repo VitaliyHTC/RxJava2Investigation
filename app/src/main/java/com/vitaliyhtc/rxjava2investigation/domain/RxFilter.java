@@ -1,4 +1,4 @@
-package com.vitaliyhtc.rxjava2investigation.data;
+package com.vitaliyhtc.rxjava2investigation.domain;
 
 public interface RxFilter<T> {
     boolean isMeetsCondition(T t);

@@ -1,4 +1,4 @@
-package com.vitaliyhtc.rxjava2investigation.data.model;
+package com.vitaliyhtc.rxjava2investigation.data.model.response;
 
 import com.google.gson.annotations.SerializedName;
 

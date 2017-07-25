@@ -4,7 +4,8 @@ import android.util.Log;
 
 import com.vitaliyhtc.rxjava2investigation.BuildConfig;
 import com.vitaliyhtc.rxjava2investigation.Config;
-import com.vitaliyhtc.rxjava2investigation.data.model.Product;
+import com.vitaliyhtc.rxjava2investigation.data.model.ConvertUtils;
+import com.vitaliyhtc.rxjava2investigation.data.model.response.Product;
 import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductsByStoreResult;
 import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
 import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;
@@ -33,13 +34,13 @@ public class ProductDataManagerImpl implements ProductDataManager {
     }
 
     @Override
-    public Observable<Product> getProductsObservable(final int storeId) {
+    public Observable<com.vitaliyhtc.rxjava2investigation.model.Product> getProductsObservable(final int storeId) {
         return Observable.create(e -> getProductsPageByStoreFromNetwork(1, e, storeId));
     }
 
     private void getProductsPageByStoreFromNetwork(
             final int offset,
-            final ObservableEmitter<Product> emitter,
+            final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.model.Product> emitter,
             final int storeId
     ) {
         mProductsResult.clear();
@@ -56,7 +57,7 @@ public class ProductDataManagerImpl implements ProductDataManager {
 
                     if (!mProductsResult.isEmpty()) {
                         for (Product product : mProductsResult) {
-                            emitter.onNext(product);
+                            emitter.onNext(ConvertUtils.convertProductModel(product));
                         }
                         // mProductsResult.forEach(emitter::onNext);
                         if (!emitter.isDisposed())
