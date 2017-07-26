@@ -1,5 +1,6 @@
 package com.vitaliyhtc.rxjava2investigation.model;
 
+// TODO: 26/07/17 these models should be in domain package
 public class Product {
 
     private int id;

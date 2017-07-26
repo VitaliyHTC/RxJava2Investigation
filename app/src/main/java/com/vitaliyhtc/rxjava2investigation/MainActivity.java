@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         String[] resultArray = mResultList.toArray(new String[mResultList.size()]);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, resultArray);
+        // TODO: 26/07/17 use recycler view
         mListViewResult.setAdapter(adapter);
     }
 

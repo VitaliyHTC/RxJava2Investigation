@@ -1,5 +1,5 @@
 package com.vitaliyhtc.rxjava2investigation.domain.model;
-
+// TODO: 26/07/17 these models should be in presentation layer
 public class Store {
     private int id;
     private String name;

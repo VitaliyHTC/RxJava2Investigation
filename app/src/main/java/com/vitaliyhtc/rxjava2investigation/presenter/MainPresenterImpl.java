@@ -40,6 +40,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
 
     public MainPresenterImpl() {
         mStoreRepository = new StoreRepositoryImpl();
+        // TODO: 26/07/17 why you need hashmap of repositories?
         mProductRepositories = new HashMap<>();
         mDisposableProducts = new HashMap<>();
         mCountProducts = new HashMap<>();
@@ -75,6 +76,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
         mCountStores = 0;
         mDisposableStores = mStoreRepository.getStoresObservable()
                 .subscribeOn(Schedulers.io())
+                // TODO: 26/07/17 use mapper
                 .map(store -> new Store(store.getId(), store.getName()))
                 .filter(filter::isMeetsCondition)
                 .take(count)
@@ -100,6 +102,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
 
     private void loadProducts(int storeId, int count, RxFilter<Product> filter) {
         mCountProducts.put(storeId, 0);
+        // TODO: 26/07/17 very complicated put()
         mDisposableProducts.put(
                 storeId,
                 mProductRepositories.get(storeId).getProductsObservable(storeId)

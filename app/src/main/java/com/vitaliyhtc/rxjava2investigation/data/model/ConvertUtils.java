@@ -3,6 +3,7 @@ package com.vitaliyhtc.rxjava2investigation.data.model;
 import com.vitaliyhtc.rxjava2investigation.model.Product;
 import com.vitaliyhtc.rxjava2investigation.model.Store;
 
+// TODO: 26/07/17 check mapper interface & class from samples
 public abstract class ConvertUtils {
 
     private ConvertUtils() {

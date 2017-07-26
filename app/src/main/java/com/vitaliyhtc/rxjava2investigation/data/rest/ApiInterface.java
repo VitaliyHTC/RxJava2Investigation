@@ -13,6 +13,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
+    // TODO: 26/07/17 why observable don't used directly from retrofit?
     @GET("stores")
     Call<StoresResult> getStoresResult(
             @Query("page") int page,

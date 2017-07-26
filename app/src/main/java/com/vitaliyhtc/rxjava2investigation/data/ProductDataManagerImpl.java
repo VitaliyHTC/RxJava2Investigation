@@ -38,6 +38,8 @@ public class ProductDataManagerImpl implements ProductDataManager {
         return Observable.create(e -> getProductsPageByStoreFromNetwork(1, e, storeId));
     }
 
+    // TODO: 26/07/17 use rx, work with data stream
+    // TODO: 26/07/17 you don't know here how many pages you need to load, you just make a request, consume the reponse and return the data stream
     private void getProductsPageByStoreFromNetwork(
             final int offset,
             final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.model.Product> emitter,
