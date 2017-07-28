@@ -14,13 +14,13 @@
         android:textAllCaps="false"
         />
 
-    <ListView
-        android:id="@+id/lv_result"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_result"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/btn_load"
-        android:layout_above="@+id/tv_stores_error">
-    </ListView>
+        android:layout_above="@+id/tv_stores_error"
+        />
 
     <TextView
         android:id="@+id/tv_stores_error"

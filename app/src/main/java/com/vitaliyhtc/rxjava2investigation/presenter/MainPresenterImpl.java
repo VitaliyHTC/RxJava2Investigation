@@ -6,8 +6,10 @@ import com.vitaliyhtc.rxjava2investigation.domain.ProductRepository;
 import com.vitaliyhtc.rxjava2investigation.domain.RxUtils;
 import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
-import com.vitaliyhtc.rxjava2investigation.domain.model.Product;
-import com.vitaliyhtc.rxjava2investigation.domain.model.Store;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.ProductMapper;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.StoreMapper;
 import com.vitaliyhtc.rxjava2investigation.view.MainView;
 
 import java.util.HashMap;
@@ -76,8 +78,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
         mCountStores = 0;
         mDisposableStores = mStoreRepository.getStoresObservable()
                 .subscribeOn(Schedulers.io())
-                // TODO: 26/07/17 use mapper
-                .map(store -> new Store(store.getId(), store.getName()))
+                .map(new StoreMapper())
                 .filter(filter::isMeetsCondition)
                 .take(count)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,25 +103,22 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
 
     private void loadProducts(int storeId, int count, RxFilter<Product> filter) {
         mCountProducts.put(storeId, 0);
-        // TODO: 26/07/17 very complicated put()
-        mDisposableProducts.put(
-                storeId,
-                mProductRepositories.get(storeId).getProductsObservable(storeId)
-                        .subscribeOn(Schedulers.io())
-                        .map(product -> new com.vitaliyhtc.rxjava2investigation.domain.model.Product(product.getId(), product.getName()))
-                        .filter(filter::isMeetsCondition)
-                        .take(count)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                product -> {
-                                    addProductToResult(storeId, product);
-                                    mCountProducts.put(storeId, mCountProducts.get(storeId) + 1);
-                                    if (mCountProducts.get(storeId) >= count)
-                                        RxUtils.dispose(mDisposableProducts.get(storeId));
-                                },
-                                throwable -> loadProductsError(throwable)
-                        )
-        );
+        Disposable disposable = mProductRepositories.get(storeId).getProductsObservable(storeId)
+                .subscribeOn(Schedulers.io())
+                .map(new ProductMapper())
+                .filter(filter::isMeetsCondition)
+                .take(count)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        product -> {
+                            addProductToResult(storeId, product);
+                            mCountProducts.put(storeId, mCountProducts.get(storeId) + 1);
+                            if (mCountProducts.get(storeId) >= count)
+                                RxUtils.dispose(mDisposableProducts.get(storeId));
+                        },
+                        throwable -> loadProductsError(throwable)
+                );
+        mDisposableProducts.put(storeId, disposable);
     }
 
     private void addProductToResult(int storeId, Product product) {

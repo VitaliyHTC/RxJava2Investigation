@@ -25,7 +25,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
 
     private List<Store> mStoresResult = new ArrayList<>();
 
-    private Observable<com.vitaliyhtc.rxjava2investigation.model.Store> mStoreObservable;
+    private Observable<com.vitaliyhtc.rxjava2investigation.domain.model.Store> mStoreObservable;
 
     @Override
     public void initResources() {
@@ -35,7 +35,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
     public void releaseResources() {
     }
 
-    public synchronized Observable<com.vitaliyhtc.rxjava2investigation.model.Store> getStoresObservable() {
+    public synchronized Observable<com.vitaliyhtc.rxjava2investigation.domain.model.Store> getStoresObservable() {
         if (mStoreObservable != null) {
             return mStoreObservable;
         } else {
@@ -45,7 +45,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
     }
     // TODO: 26/07/17 use rx, work with data stream
     // TODO: 26/07/17 you don't know here how many pages you need to load, you just make a request, consume the reponse and return the data stream
-    private void getStoresPageFromNetwork(final int offset, final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.model.Store> emitter) {
+    private void getStoresPageFromNetwork(final int offset, final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.domain.model.Store> emitter) {
         mStoresResult.clear();
         ApiInterface apiService = RetrofitApiClient.getClient().create(ApiInterface.class);
 
@@ -59,6 +59,7 @@ public class StoreDataManagerImpl implements StoreDataManager {
 
                     if (!mStoresResult.isEmpty()) {
                         for (Store store : mStoresResult) {
+                            //TODO: use mapper
                             emitter.onNext(ConvertUtils.convertStoreModel(store));
                         }
                         //mStoresResult.forEach(emitter::onNext);

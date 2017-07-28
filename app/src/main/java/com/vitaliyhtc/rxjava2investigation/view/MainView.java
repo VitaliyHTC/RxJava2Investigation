@@ -1,7 +1,7 @@
 package com.vitaliyhtc.rxjava2investigation.view;
 
-import com.vitaliyhtc.rxjava2investigation.domain.model.Product;
-import com.vitaliyhtc.rxjava2investigation.domain.model.Store;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
 
 public interface MainView extends BaseView {
     void addStoreToResult(Store store);

@@ -2,16 +2,17 @@ package com.vitaliyhtc.rxjava2investigation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vitaliyhtc.rxjava2investigation.domain.model.Product;
-import com.vitaliyhtc.rxjava2investigation.domain.model.Store;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
 import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenter;
 import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenterImpl;
 import com.vitaliyhtc.rxjava2investigation.view.MainView;
+import com.vitaliyhtc.rxjava2investigation.view.adapter.StoreProductAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @BindView(R.id.btn_load)
     Button mButtonLoad;
-    @BindView(R.id.lv_result)
-    ListView mListViewResult;
+    @BindView(R.id.rv_result)
+    RecyclerView mRecyclerView;
     @BindView(R.id.tv_stores_error)
     TextView mTextViewStoresError;
     @BindView(R.id.tv_products_error)
@@ -41,12 +42,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private List<Store> mStoreList;
     private Map<Integer, List<Product>> mProductsMap;
 
+    private StoreProductAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        mAdapter = new StoreProductAdapter();
+        mRecyclerView.setAdapter(mAdapter);
 
         mStoreList = new ArrayList<>();
         mProductsMap = new HashMap<>();
@@ -91,11 +98,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 }
             }
         }
-        String[] resultArray = mResultList.toArray(new String[mResultList.size()]);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, resultArray);
-        // TODO: 26/07/17 use recycler view
-        mListViewResult.setAdapter(adapter);
+        mAdapter.setItems(mResultList);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

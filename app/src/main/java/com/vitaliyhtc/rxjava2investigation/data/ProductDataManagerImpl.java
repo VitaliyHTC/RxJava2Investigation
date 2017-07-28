@@ -34,7 +34,7 @@ public class ProductDataManagerImpl implements ProductDataManager {
     }
 
     @Override
-    public Observable<com.vitaliyhtc.rxjava2investigation.model.Product> getProductsObservable(final int storeId) {
+    public Observable<com.vitaliyhtc.rxjava2investigation.domain.model.Product> getProductsObservable(final int storeId) {
         return Observable.create(e -> getProductsPageByStoreFromNetwork(1, e, storeId));
     }
 
@@ -42,7 +42,7 @@ public class ProductDataManagerImpl implements ProductDataManager {
     // TODO: 26/07/17 you don't know here how many pages you need to load, you just make a request, consume the reponse and return the data stream
     private void getProductsPageByStoreFromNetwork(
             final int offset,
-            final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.model.Product> emitter,
+            final ObservableEmitter<com.vitaliyhtc.rxjava2investigation.domain.model.Product> emitter,
             final int storeId
     ) {
         mProductsResult.clear();
@@ -59,6 +59,7 @@ public class ProductDataManagerImpl implements ProductDataManager {
 
                     if (!mProductsResult.isEmpty()) {
                         for (Product product : mProductsResult) {
+                            //TODO: use mapper
                             emitter.onNext(ConvertUtils.convertProductModel(product));
                         }
                         // mProductsResult.forEach(emitter::onNext);
