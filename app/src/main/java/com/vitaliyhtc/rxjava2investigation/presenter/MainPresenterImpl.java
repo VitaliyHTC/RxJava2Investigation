@@ -32,7 +32,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
     private MainView mMainView;
 
     private StoreRepository mStoreRepository;
-    private Map<Integer, ProductRepository> mProductRepositories;
+    private ProductRepository mProductRepository;
 
     private Disposable mDisposableStores;
     private int mCountStores;
@@ -42,8 +42,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
 
     public MainPresenterImpl() {
         mStoreRepository = new StoreRepositoryImpl();
-        // TODO: 26/07/17 why you need hashmap of repositories?
-        mProductRepositories = new HashMap<>();
+        mProductRepository = new ProductRepositoryImpl();
         mDisposableProducts = new HashMap<>();
         mCountProducts = new HashMap<>();
     }
@@ -52,6 +51,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
     public void onAttachView(MainView mainView) {
         mMainView = mainView;
         mStoreRepository.initResources();
+        mProductRepository.initResources();
     }
 
     @Override
@@ -64,9 +64,7 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
         }
 
         mStoreRepository.releaseResources();
-        for (Map.Entry<Integer, ProductRepository> entry : mProductRepositories.entrySet()) {
-            entry.getValue().releaseResources();
-        }
+        mProductRepository.releaseResources();
     }
 
     @Override
@@ -95,15 +93,12 @@ public class MainPresenterImpl implements MainPresenter<MainView> {
 
     private void addStoreToResult(Store store) {
         mMainView.addStoreToResult(store);
-        ProductRepository productRepository = new ProductRepositoryImpl();
-        productRepository.initResources();
-        mProductRepositories.put(store.getId(), productRepository);
         loadProducts(store.getId(), COUNT_PRODUCTS_PER_STORE, mProductFilter);
     }
 
     private void loadProducts(int storeId, int count, RxFilter<Product> filter) {
         mCountProducts.put(storeId, 0);
-        Disposable disposable = mProductRepositories.get(storeId).getProductsObservable(storeId)
+        Disposable disposable = mProductRepository.getProductsObservable(storeId)
                 .subscribeOn(Schedulers.io())
                 .map(new ProductMapper())
                 .filter(filter::isMeetsCondition)
