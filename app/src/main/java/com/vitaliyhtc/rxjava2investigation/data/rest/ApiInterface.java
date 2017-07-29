@@ -6,6 +6,7 @@ import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductsResult;
 import com.vitaliyhtc.rxjava2investigation.data.model.response.StoreResult;
 import com.vitaliyhtc.rxjava2investigation.data.model.response.StoresResult;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -13,9 +14,8 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    // TODO: 26/07/17 why observable don't used directly from retrofit?
     @GET("stores")
-    Call<StoresResult> getStoresResult(
+    Single<StoresResult> getStoresResult(
             @Query("page") int page,
             @Query("per_page") int perPage,
             @Query("access_key") String accessKey
@@ -36,7 +36,7 @@ public interface ApiInterface {
     );
 
     @GET("products")
-    Call<ProductsByStoreResult> getProductsByStore(
+    Single<ProductsByStoreResult> getProductsByStore(
             @Query("store_id") int storeId,
             @Query("page") int page,
             @Query("per_page") int perPage,

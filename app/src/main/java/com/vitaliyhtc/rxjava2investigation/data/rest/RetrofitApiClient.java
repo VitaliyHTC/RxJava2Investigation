@@ -3,6 +3,7 @@ package com.vitaliyhtc.rxjava2investigation.data.rest;
 import com.vitaliyhtc.rxjava2investigation.BuildConfig;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitApiClient {
@@ -14,6 +15,7 @@ public class RetrofitApiClient {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

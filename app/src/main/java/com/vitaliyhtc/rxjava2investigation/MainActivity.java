@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
 import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenter;
-import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenterImpl;
 import com.vitaliyhtc.rxjava2investigation.view.MainView;
 import com.vitaliyhtc.rxjava2investigation.view.adapter.StoreProductAdapter;
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mStoreList = new ArrayList<>();
         mProductsMap = new HashMap<>();
 
-        mMainPresenter = new MainPresenterImpl();
+        mMainPresenter = new MainPresenter();
         mMainPresenter.onAttachView(this);
     }
 
