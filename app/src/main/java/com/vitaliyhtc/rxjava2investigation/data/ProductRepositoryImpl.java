@@ -2,7 +2,7 @@ package com.vitaliyhtc.rxjava2investigation.data;
 
 import com.vitaliyhtc.rxjava2investigation.BuildConfig;
 import com.vitaliyhtc.rxjava2investigation.Config;
-import com.vitaliyhtc.rxjava2investigation.data.model.ProductMapper;
+import com.vitaliyhtc.rxjava2investigation.data.model.mapper.ProductMapper;
 import com.vitaliyhtc.rxjava2investigation.data.model.response.ProductsByStoreResult;
 import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
 import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;

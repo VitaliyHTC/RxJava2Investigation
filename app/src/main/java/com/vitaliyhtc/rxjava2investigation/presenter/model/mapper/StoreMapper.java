@@ -1,4 +1,6 @@
-package com.vitaliyhtc.rxjava2investigation.presenter.model;
+package com.vitaliyhtc.rxjava2investigation.presenter.model.mapper;
+
+import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Function;

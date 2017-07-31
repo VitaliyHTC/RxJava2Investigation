@@ -8,9 +8,9 @@ import com.vitaliyhtc.rxjava2investigation.domain.ProductRepository;
 import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
-import com.vitaliyhtc.rxjava2investigation.presenter.model.ProductMapper;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.mapper.ProductMapper;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
-import com.vitaliyhtc.rxjava2investigation.presenter.model.StoreMapper;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.mapper.StoreMapper;
 import com.vitaliyhtc.rxjava2investigation.view.MainView;
 
 import java.util.HashMap;

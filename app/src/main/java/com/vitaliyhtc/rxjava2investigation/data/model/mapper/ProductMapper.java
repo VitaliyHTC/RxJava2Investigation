@@ -1,4 +1,4 @@
-package com.vitaliyhtc.rxjava2investigation.data.model;
+package com.vitaliyhtc.rxjava2investigation.data.model.mapper;
 
 import com.vitaliyhtc.rxjava2investigation.domain.model.Product;
 
