@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
+// TODO: 01/08/17 check StoreRepositoryImpl
 public class ProductRepositoryImpl implements ProductRepository {
 
     public ProductRepositoryImpl() {

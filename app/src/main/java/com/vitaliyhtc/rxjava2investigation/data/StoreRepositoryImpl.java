@@ -15,7 +15,11 @@ import io.reactivex.Observable;
 
 public class StoreRepositoryImpl implements StoreRepository {
 
+    private final StoreMapper mStoreMapper;
+
+    // TODO: 01/08/17  send ApiInterface into constuctor and use it from here
     public StoreRepositoryImpl() {
+        mStoreMapper = new StoreMapper();
     }
 
     @Override
@@ -33,12 +37,13 @@ public class StoreRepositoryImpl implements StoreRepository {
                 .getStoresResult(
                         page,
                         Config.STORES_PER_PAGE,
+                        // TODO: 01/08/17 api key is static for whole project, can be used as constant in ApiInterface
                         BuildConfig.LCBO_API_ACCESS_KEY
                 )
                 .toObservable()
                 .map(StoresResult::getResult)
                 .flatMap(Observable::fromIterable)
-                .map(new StoreMapper())
+                .map(mStoreMapper)
                 .toList()
                 .toObservable();
     }

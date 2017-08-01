@@ -3,13 +3,13 @@ package com.vitaliyhtc.rxjava2investigation.presenter;
 import android.annotation.SuppressLint;
 
 import com.vitaliyhtc.rxjava2investigation.data.ProductRepositoryImpl;
-import com.vitaliyhtc.rxjava2investigation.domain.RxFilter;
-import com.vitaliyhtc.rxjava2investigation.domain.ProductRepository;
-import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
+import com.vitaliyhtc.rxjava2investigation.domain.ProductRepository;
+import com.vitaliyhtc.rxjava2investigation.domain.RxFilter;
+import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
-import com.vitaliyhtc.rxjava2investigation.presenter.model.mapper.ProductMapper;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
+import com.vitaliyhtc.rxjava2investigation.presenter.model.mapper.ProductMapper;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.mapper.StoreMapper;
 import com.vitaliyhtc.rxjava2investigation.view.MainView;
 
@@ -47,6 +47,7 @@ public class MainPresenter implements BasePresenter<MainView> {
 
     @SuppressLint("UseSparseArrays")
     public MainPresenter() {
+        // TODO: 01/08/17 better to sent repositories in constructor, so they can be replaced in tests
         mStoreRepository = new StoreRepositoryImpl();
         mProductRepository = new ProductRepositoryImpl();
         mCountProducts = new HashMap<>();
