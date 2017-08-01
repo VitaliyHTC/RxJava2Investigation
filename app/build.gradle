@@ -23,9 +23,6 @@ android {
     buildTypes {
         all {
             signingConfig signingConfigs.config
-
-            buildConfigField "String", "LCBO_API_ACCESS_KEY", '"MDo4MjI4NjU0Ni1mZGFmLTExZTYtODQzOC0yZjJhN2Y4YWNmOGQ6dEFucGdpR2xvcXR1bGloOThwNkZ0S1lKVGxNa1M2OUdvV3Bw"'
-            buildConfigField "String", "LCBO_API_BASE_URL", '"https://lcboapi.com/"'
         }
         release {
         }

@@ -12,7 +12,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+@SuppressWarnings("unused")
 public interface ApiInterface {
+    String LCBO_API_BASE_URL = "https://lcboapi.com/";
+    String LCBO_API_ACCESS_KEY = "MDo4MjI4NjU0Ni1mZGFmLTExZTYtODQzOC0yZjJhN2Y4YWNmOGQ6dEFucGdpR2xvcXR1bGloOThwNkZ0S1lKVGxNa1M2OUdvV3Bw";
 
     @GET("stores")
     Single<StoresResult> getStoresResult(

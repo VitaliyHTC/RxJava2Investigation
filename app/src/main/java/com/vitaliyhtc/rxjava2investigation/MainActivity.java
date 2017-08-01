@@ -1,5 +1,6 @@
 package com.vitaliyhtc.rxjava2investigation;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.vitaliyhtc.rxjava2investigation.data.ProductRepositoryImpl;
+import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
+import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
+import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
 import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenter;
@@ -23,7 +28,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements MainView {
-    private static final String TAG = "MainActivity";
 
     private MainPresenter mMainPresenter;
 
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private StoreProductAdapter mAdapter;
 
+    @SuppressLint("UseSparseArrays")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +62,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mStoreList = new ArrayList<>();
         mProductsMap = new HashMap<>();
 
-        mMainPresenter = new MainPresenter();
+        ApiInterface apiService = RetrofitApiClient.getClient().create(ApiInterface.class);
+        mMainPresenter = new MainPresenter(
+                new StoreRepositoryImpl(apiService),
+                new ProductRepositoryImpl(apiService)
+        );
         mMainPresenter.onAttachView(this);
     }
 
@@ -87,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         updateStoresAndProductsListUi();
     }
 
+    @SuppressWarnings("Convert2streamapi")
     private void updateStoresAndProductsListUi() {
         mResultList.clear();
         for (Store store : mStoreList) {

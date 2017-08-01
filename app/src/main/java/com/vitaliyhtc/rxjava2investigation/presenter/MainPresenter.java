@@ -2,8 +2,6 @@ package com.vitaliyhtc.rxjava2investigation.presenter;
 
 import android.annotation.SuppressLint;
 
-import com.vitaliyhtc.rxjava2investigation.data.ProductRepositoryImpl;
-import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
 import com.vitaliyhtc.rxjava2investigation.domain.ProductRepository;
 import com.vitaliyhtc.rxjava2investigation.domain.RxFilter;
 import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
@@ -46,10 +44,9 @@ public class MainPresenter implements BasePresenter<MainView> {
     private Map<Integer, Integer> mCountProducts;
 
     @SuppressLint("UseSparseArrays")
-    public MainPresenter() {
-        // TODO: 01/08/17 better to sent repositories in constructor, so they can be replaced in tests
-        mStoreRepository = new StoreRepositoryImpl();
-        mProductRepository = new ProductRepositoryImpl();
+    public MainPresenter(StoreRepository storeRepository, ProductRepository productRepository) {
+        mStoreRepository = storeRepository;
+        mProductRepository = productRepository;
         mCountProducts = new HashMap<>();
     }
 
@@ -57,8 +54,6 @@ public class MainPresenter implements BasePresenter<MainView> {
     public void onAttachView(MainView mainView) {
         mMainView = mainView;
         mCompositeDisposable = new CompositeDisposable();
-        mStoreRepository.initResources();
-        mProductRepository.initResources();
     }
 
     @Override
@@ -68,9 +63,6 @@ public class MainPresenter implements BasePresenter<MainView> {
         if (mCompositeDisposable != null) {
             mCompositeDisposable.dispose();
         }
-
-        mStoreRepository.releaseResources();
-        mProductRepository.releaseResources();
     }
 
 

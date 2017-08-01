@@ -6,6 +6,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-public interface ProductRepository extends Repository {
+public interface ProductRepository {
     Observable<List<Product>> getProductsObservable(int page, int storeId);
 }
