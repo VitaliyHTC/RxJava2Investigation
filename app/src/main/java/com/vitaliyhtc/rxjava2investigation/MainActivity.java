@@ -8,10 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.vitaliyhtc.rxjava2investigation.data.ProductRepositoryImpl;
-import com.vitaliyhtc.rxjava2investigation.data.StoreRepositoryImpl;
-import com.vitaliyhtc.rxjava2investigation.data.rest.ApiInterface;
-import com.vitaliyhtc.rxjava2investigation.data.rest.RetrofitApiClient;
+import com.vitaliyhtc.rxjava2investigation.app.App;
+import com.vitaliyhtc.rxjava2investigation.domain.ProductRepository;
+import com.vitaliyhtc.rxjava2investigation.domain.StoreRepository;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Product;
 import com.vitaliyhtc.rxjava2investigation.presenter.model.Store;
 import com.vitaliyhtc.rxjava2investigation.presenter.MainPresenter;
@@ -22,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +43,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.tv_products_error)
     TextView mTextViewProductsError;
 
+    @Inject
+    StoreRepository mStoreRepository;
+    @Inject
+    ProductRepository mProductRepository;
+
     private List<Store> mStoreList;
     private Map<Integer, List<Product>> mProductsMap;
 
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        App.getComponent().inject(this);
 
         ButterKnife.bind(this);
 
@@ -62,11 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mStoreList = new ArrayList<>();
         mProductsMap = new HashMap<>();
 
-        ApiInterface apiService = RetrofitApiClient.getClient().create(ApiInterface.class);
-        mMainPresenter = new MainPresenter(
-                new StoreRepositoryImpl(apiService),
-                new ProductRepositoryImpl(apiService)
-        );
+        mMainPresenter = new MainPresenter(mStoreRepository, mProductRepository);
         mMainPresenter.onAttachView(this);
     }
 

@@ -38,20 +38,31 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // support
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
 
+    // retrofit2
     compile "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
     compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit2Version"
 
+    // rxjava2
     compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxjava2rxandroidVersion"
     compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2rxjavaVersion"
 
+    // di
+    compile "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+    provided "javax.annotation:jsr250-api:$rootProject.ext.jsr250apiVersion"
+
+    // butterknife
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
 
+    // test
     testCompile "junit:junit:$rootProject.ext.junitVersion"
     androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'

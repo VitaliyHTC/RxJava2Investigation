@@ -38,6 +38,8 @@ ext {
     retrofit2Version = '2.2.0'
     rxjava2rxandroidVersion = '2.0.1'
     rxjava2rxjavaVersion = '2.0.8'
+    daggerVersion = '2.11'
+    jsr250apiVersion = '1.0'
     butterknifeVersion = '8.5.1'
 
     junitVersion = '4.12'
